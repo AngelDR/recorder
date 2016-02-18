@@ -24,10 +24,10 @@ int main(int argc, char** argv){
     
   ros::Rate rate(10.0);
   
-  ofstream myfile;
+  ofstream pose_file;
   ofstream tactil_file;
-  myfile.open ("/home/aurova/Desktop/pruebas/resultados/positions.txt");
-  if(myfile.is_open())
+  pose_file.open ("/home/aurova/Desktop/pruebas/resultados/positions.txt");
+  if(pose_file.is_open())
     ROS_INFO("Archivo posiciones abierto");
    
   tactil_file.open ("/home/aurova/Desktop/pruebas/resultados/pressure.txt");
@@ -46,29 +46,29 @@ int main(int argc, char** argv){
       // transform -> get pose ff
       transformSt = tfBuffer.lookupTransform("forearm", "thtip",
                                ros::Time(0));      
-      myfile << transformSt.transform.translation.x << " " << transformSt.transform.translation.y << " " << transformSt.transform.translation.z << " ";
+      pose_file << transformSt.transform.translation.x << " " << transformSt.transform.translation.y << " " << transformSt.transform.translation.z << " ";
        
       // transform -> get pose ff
       transformSt = tfBuffer.lookupTransform("forearm", "fftip",
                                ros::Time(0));
-      myfile << transformSt.transform.translation.x << " " << transformSt.transform.translation.y << " " << transformSt.transform.translation.z << " ";
+      pose_file << transformSt.transform.translation.x << " " << transformSt.transform.translation.y << " " << transformSt.transform.translation.z << " ";
 
       // transform -> get pose mf
       transformSt = tfBuffer.lookupTransform("forearm", "mftip",
                                ros::Time(0));      
-      myfile << transformSt.transform.translation.x << " " << transformSt.transform.translation.y << " " << transformSt.transform.translation.z << " ";
+      pose_file << transformSt.transform.translation.x << " " << transformSt.transform.translation.y << " " << transformSt.transform.translation.z << " ";
 
       // transform -> get pose rf
       transformSt = tfBuffer.lookupTransform("forearm", "rftip",
                                ros::Time(0));      
-      myfile << transformSt.transform.translation.x << " " << transformSt.transform.translation.y << " " << transformSt.transform.translation.z << " ";
+      pose_file << transformSt.transform.translation.x << " " << transformSt.transform.translation.y << " " << transformSt.transform.translation.z << " ";
 
       // transform -> get pose lf
       transformSt = tfBuffer.lookupTransform("forearm", "lftip",
                                ros::Time(0));
-      myfile << transformSt.transform.translation.x << " " << transformSt.transform.translation.y << " " << transformSt.transform.translation.z << " ";
+      pose_file << transformSt.transform.translation.x << " " << transformSt.transform.translation.y << " " << transformSt.transform.translation.z << " ";
 
-      myfile << iteration << "\n";
+      pose_file << iteration << "\n";
       
     }
     catch (tf2::TransformException &ex) {
@@ -100,7 +100,7 @@ int main(int argc, char** argv){
     rate.sleep();
   }
   
-  myfile.close();
+  pose_file.close();
   tactil_file.close();
 
   ROS_INFO("Archivo cerrado");
